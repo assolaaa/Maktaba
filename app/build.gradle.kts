@@ -5,9 +5,8 @@ plugins {
 
 android {
     namespace = "com.ElOuedUniv.maktaba"
-    compileSdk {
-        version = release(36)
-    }
+
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ElOuedUniv.maktaba"
