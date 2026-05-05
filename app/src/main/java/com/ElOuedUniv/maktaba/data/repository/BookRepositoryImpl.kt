@@ -11,11 +11,41 @@ import javax.inject.Inject
 class BookRepositoryImpl @Inject constructor() : BookRepository {
 
     private val _booksList = mutableListOf(
-        Book(isbn = "11111", title = "Clean Code", nbPages = 10),
-        Book(isbn = "22222", title = "The Pragmatic Programmer", nbPages = 0),
-        Book(isbn = "33333", title = "Design Patterns", nbPages = 0),
-        Book(isbn = "44444", title = "Refactoring", nbPages = 0),
-        Book(isbn = "55555", title = "Head First Design Patterns", nbPages = 0)
+        Book(
+            isbn = "9780132350884",
+            title = "Clean Code",
+            nbPages = 464,
+            isFinished = false,
+            imageUrl = "https://covers.openlibrary.org/b/isbn/9780132350884-L.jpg"
+        ),
+        Book(
+            isbn = "9780201616224",
+            title = "The Pragmatic Programmer",
+            nbPages = 352,
+            isFinished = true,
+            imageUrl = "https://covers.openlibrary.org/b/isbn/9780201616224-L.jpg"
+        ),
+        Book(
+            isbn = "9780201633610",
+            title = "Design Patterns",
+            nbPages = 395,
+            isFinished = false,
+            imageUrl = "https://covers.openlibrary.org/b/isbn/9780201633610-L.jpg"
+        ),
+        Book(
+            isbn = "9780134757599",
+            title = "Refactoring",
+            nbPages = 448,
+            isFinished = true,
+            imageUrl = "https://covers.openlibrary.org/b/isbn/9780134757599-L.jpg"
+        ),
+        Book(
+            isbn = "9781492078005",
+            title = "Head First Design Patterns",
+            nbPages = 694,
+            isFinished = false,
+            imageUrl = "https://covers.openlibrary.org/b/isbn/9781492078005-L.jpg"
+        )
     )
 
     private val booksFlow = MutableSharedFlow<List<Book>>(replay = 1).apply {
@@ -33,6 +63,10 @@ class BookRepositoryImpl @Inject constructor() : BookRepository {
 
     override fun addBook(book: Book) {
         _booksList.add(book)
+        booksFlow.tryEmit(_booksList.toList())
+    }
+    override fun deleteBook(isbn: String) {
+        _booksList.removeIf { it.isbn == isbn }
         booksFlow.tryEmit(_booksList.toList())
     }
 }

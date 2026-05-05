@@ -46,21 +46,17 @@ class BookViewModel @Inject constructor(
     fun onAction(action: BookUiAction) {
         when (action) {
             BookUiAction.RefreshBooks -> refreshBooks()
-            BookUiAction.OnAddBookClick -> {
-                _uiState.update { it.copy(isAddingBook = true) }
+            BookUiAction.OnChangeGridColumns -> {
+                _uiState.update {
+                    val nextColumns = when (it.gridColumns) {
+                        1 -> 2
+                        2 -> 3
+                        else -> 1
+                    }
+                    it.copy(gridColumns = nextColumns)
+                }
             }
-            BookUiAction.OnDismissAddBook -> {
-                _uiState.update { it.copy(isAddingBook = false) }
-            }
-            is BookUiAction.OnAddBookConfirm -> {
-                val newBook = Book(
-                    isbn = action.isbn,
-                    title = action.title,
-                    nbPages = action.nbPages
-                )
-                addBookUseCase(newBook)
-                _uiState.update { it.copy(isAddingBook = false) }
-            }
+            else -> {}
         }
     }
 

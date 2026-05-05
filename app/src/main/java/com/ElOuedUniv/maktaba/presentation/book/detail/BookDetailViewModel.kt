@@ -3,6 +3,7 @@ package com.ElOuedUniv.maktaba.presentation.book.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.ElOuedUniv.maktaba.domain.usecase.GetBookByIsbnUseCase
+import com.ElOuedUniv.maktaba.domain.usecase.DeleteBookUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class BookDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getBookByIsbnUseCase: GetBookByIsbnUseCase
+    private val getBookByIsbnUseCase: GetBookByIsbnUseCase,
+    private val deleteBookUseCase: DeleteBookUseCase
 ) : ViewModel() {
 
     private val isbn: String = checkNotNull(savedStateHandle["isbn"])
@@ -32,5 +34,14 @@ class BookDetailViewModel @Inject constructor(
 
     fun onAction(action: BookDetailUiAction) {
         // Handle actions like "Retry" or "Refresh" if added later
+        when (action) {
+            BookDetailUiAction.OnDeleteClick -> {
+                deleteBookUseCase(isbn)
+                _uiState.update { it.copy(isDeleted = true) }
+            }
+            BookDetailUiAction.OnBackClick -> {
+                // Handle in View
+            }
+        }
     }
 }

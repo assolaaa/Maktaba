@@ -10,4 +10,5 @@ interface BookRepository {
     fun getBookByIsbn(isbn: String): Book?
 
     fun addBook(book: Book)
+    fun deleteBook(isbn: String)
 }

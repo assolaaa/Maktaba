@@ -14,17 +14,26 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
         Category(
             id = "1",
             name = "Programming",
-            description = "Books about software development and coding"
+            description = "Books about software development and coding",
+            imageUrl = "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400"
         ),
         Category(
             id = "2",
             name = "Algorithms",
-            description = "Books about algorithms and data structures"
+            description = "Books about algorithms and data structures",
+            imageUrl = "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=400"
         ),
         Category(
             id = "3",
             name = "Databases",
-            description = "Books about database design and management"
+            description = "Books about database design and management",
+            imageUrl = "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=400"
+        ),
+        Category(
+            id = "4",
+            name = "Artificial Intelligence",
+            description = "Explore the world of AI and Machine Learning",
+            imageUrl = "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=400"
         )
     )
 
@@ -33,7 +42,7 @@ class CategoryRepositoryImpl @Inject constructor() : CategoryRepository {
     }
     
     override fun getAllCategories(): Flow<List<Category>> = flow {
-        delay(2000) // Simulate delay
+        delay(1000) // Simulate delay
         emitAll(categoriesFlow)
     }
 
